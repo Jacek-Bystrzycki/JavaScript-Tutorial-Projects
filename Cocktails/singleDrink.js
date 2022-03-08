@@ -9,6 +9,7 @@ window.addEventListener("DOMContentLoaded", async () => {
     const id = getId("id");
     const queryUrl = `${url}${id}`;
     const drink = await fetchDrink(queryUrl);
+    if (!drink.drinks) window.location.replace("index.html");
     toggleLoading();
     displayDrink(drink);
 });
