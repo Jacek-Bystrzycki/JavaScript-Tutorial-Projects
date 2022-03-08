@@ -11,8 +11,9 @@ const displayDrink = (drinks) => {
         }
     };
     ingredients = ingredients.map(ingr => {
-        return `<ul class="drink-ingredients">${ingr}</ul>`;
+        return `<li><i class="far fa-check-square"></i>${ingr}</li>`;
     }).join("");
+    ingredients = `<ul class="drink-ingredients">${ingredients}</ul>`;
 
     const container = get(".single-drink");
     container.innerHTML = `<img src="${image}" class="drink-img" alt="${name}">
@@ -22,6 +23,7 @@ const displayDrink = (drinks) => {
         ${ingredients}
         <a href="./index.html" class="btn">all cocktails</a>
       </article>`;
+    document.title = name;
 };
 
 export default displayDrink;
