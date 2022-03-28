@@ -139,6 +139,41 @@ const data = [
         price: 459,
         color: "black"
     },
+    {
+        id: 21,
+        name: "socks",
+        company: "4F",
+        price: 67,
+        color: "blue"
+    },
+    {
+        id: 22,
+        name: "shoes",
+        company: "4F",
+        price: 509,
+        color: "darkred"
+    },
+    {
+        id: 23,
+        name: "hat",
+        company: "4F",
+        price: 190,
+        color: "gold"
+    },
+    {
+        id: 24,
+        name: "socks",
+        company: "4F",
+        price: 140,
+        color: "orange"
+    },
+    {
+        id: 25,
+        name: "t-shirt",
+        company: "4F",
+        price: 69,
+        color: "blueviolet"
+    }
 ];
 
 export default data;

@@ -79,3 +79,22 @@ section {
 .item h3 {
   padding-top: 0.5rem;
 }
+
+.color-container {
+  max-width: 10rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: baseline;
+}
+
+.colorbox {
+  width: 15px;
+  height: 15px;
+  margin: 0.5rem 1rem;
+}
+
+.selected {
+  outline-offset: 3px;
+  outline-style: solid;
+  outline-width: 3px;
+}
