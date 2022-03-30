@@ -1,12 +1,17 @@
+import { itemsPerPage } from "../app.js";
+
 const dataContainer = document.querySelector(".data");
 const companiesContainer = document.querySelector(".companies");
 const colorsContainer = document.querySelector(".color-container");
+const paginationContainer = document.querySelector(".pagination");
 
 //dynamic DOM elements
 let checkboxes;
 let colors;
 
+//display items function
 const displayData = (data) => {
+
     const dataToDisplay = data.map(item => {
         return `<div class="item">
                 <h2 class="name">${item.name}</h2>
@@ -19,10 +24,12 @@ const displayData = (data) => {
     dataContainer.innerHTML = dataToDisplay;
 };
 
+//Capitalize 1st letter function
 const capitalize = (string) => {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
+//Display company and color filters dynamically (search all available variants in database)
 const displayDynamicFilters = (data) => {
     //display companies filter
     let companies = [];
@@ -56,4 +63,30 @@ const displayDynamicFilters = (data) => {
     colors = document.querySelectorAll(".colorbox");
 };
 
-export {checkboxes, colors, displayData, displayDynamicFilters};
+//Split data for displaying in pages
+const pagination = (data, currentPage) => {
+    const dataLength = data.length;
+    const amountOfPages = Math.ceil(dataLength / itemsPerPage);
+ 
+   //display pages controls
+   let buttons = [];
+   for (let i = 0; i < amountOfPages; i++) {
+        buttons.push((currentPage === i) ?`<span class="current" data-value="${i + 1}">${i + 1}</span>`:`<span data-value="${i + 1}">${i + 1}</span>`)
+    }
+    if (buttons.length > 0) {
+    buttons.unshift(`<span data-value="prev">prev</span>`);
+    buttons.push(`<span data-value="next">next</span>`);
+    };
+    paginationContainer.innerHTML = buttons.join("");
+
+    //display items
+    let pageData = [];
+    if (dataLength < 1) return pageData;
+    pageData = Array.from({length: amountOfPages}, (item, index) => {
+        item = data.slice(itemsPerPage * index, itemsPerPage * (index + 1));
+        return item;
+    });
+    return pageData;
+};
+
+export {checkboxes, colors, displayData, displayDynamicFilters, pagination, paginationContainer};

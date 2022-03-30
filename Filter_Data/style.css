@@ -46,14 +46,14 @@ section {
   display: none;
 }
 
-.data {
+.data-container {
   width: 60%;
   text-align: center;
   margin-left: 0;
 }
 
 @media screen and (min-width: 820px) {
-  .data {
+  .data-container {
     margin-left: 20rem;
     margin-top: 0;
   }
@@ -97,4 +97,31 @@ section {
   outline-offset: 3px;
   outline-style: solid;
   outline-width: 3px;
+}
+
+/* pagination */
+
+.pagination {
+  display: flex;
+  justify-content: center;
+}
+
+.pagination span {
+  margin: 0.3rem;
+  font-size: 1.5rem;
+}
+.pagination span {
+  margin: 0.3rem;
+  font-size: 1.5rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  text-transform: capitalize;
+  cursor: pointer;
+}
+
+.pagination span.current {
+  font-weight: bold;
+  color: white;
+  background-color: rgb(157, 157, 243);
+  border-radius: 5px;
 }

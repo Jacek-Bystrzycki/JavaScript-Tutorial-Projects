@@ -1,9 +1,9 @@
 import {checkboxes, colors} from "../utils/utils.js";
 import {name, lowPrice, highPrice} from "../app.js";
 
+//Filter by companies function
 const filterByCompanies = (data) => {
     let newData = [];
-    let filterActive;
 
     let arrayCheckboxes = [...checkboxes];
 
@@ -16,9 +16,7 @@ const filterByCompanies = (data) => {
     }, false);
 
     if (!notEmpty){
-        filterActive = false;
         newData = [...data];
-        return {newData, filterActive}
     } else {
         checkboxes.forEach(checkbox => {
         if (checkbox.checked){
@@ -29,14 +27,13 @@ const filterByCompanies = (data) => {
             });
         };   
         });
-        filterActive = true;
-        return {newData, filterActive};
     };
+    return newData;
 };
 
+//Filter by name function
 const filterByName = (data) => {
     let newData = [];
-    let filterActive;
 
     if (name.value){
         const value = name.value.toLowerCase();
@@ -45,18 +42,15 @@ const filterByName = (data) => {
                 newData.push(item);
             };
         });
-        filterActive = true;
-        return {newData, filterActive};
     } else {
-        filterActive = false;
         newData = [...data];
-        return {newData, filterActive};
     };
+    return newData;
 };
 
+//Filter by price function
 const filterByPrice = (data) => {
     let newData = [];
-    let filterActive;
 
     const low = parseInt(lowPrice.value) * 10;
     const high = parseInt(highPrice.value) * 10;
@@ -67,18 +61,15 @@ const filterByPrice = (data) => {
                 newData.push(item);
             };
         });
-        filterActive = true;
-        return {newData, filterActive};
     } else {
-        filterActive = false;
         newData = [...data];
-        return {newData, filterActive};
     };
+    return newData;
 };
 
+//Filter by colors funcion
 const filterByColors = (data) => {
     let newData = [];
-    let filterActive;
 
     let arrayColors = [...colors];
 
@@ -91,9 +82,7 @@ const filterByColors = (data) => {
     }, false);
 
     if (!notEmpty){
-        filterActive = false;
         newData = [...data];
-        return {newData, filterActive}
     } else {
         colors.forEach(color => { 
         if (color.classList.contains("selected")){
@@ -105,9 +94,8 @@ const filterByColors = (data) => {
             });
             };   
         });
-        filterActive = true;
-        return {newData, filterActive};
     };
+    return newData;
 };
 
 export {filterByCompanies, filterByName, filterByPrice, filterByColors};

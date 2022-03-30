@@ -39,10 +39,22 @@
                     <p>Price high (0 = unlimited):</p>
                     <input type="number" id="hprice" name="hprice" class="price">
                     </div>
+                    <div class="input">
+                    <p>Items per page:</p>
+                    <input type="number" id="items" name="items" class="items" placeholder="25">
+                    </div>
                 </form>               
                 <button class="clear btn hide">Clear filter</button>
             </div>
-            <div class="data">
+            <div class="data-container">
+                <div class="pagination">
+                    <span>prev</span>
+                    <span class="current">1</span>
+                    <span>2</span>
+                    <span>3</span>
+                    <span>next</span>
+                </div>
+                <div class="data">
                 <!-- dynamic data: -->
                 <!-- <div class="item">
                 <h2 class="name">name</h2>
@@ -50,6 +62,7 @@
                 <h3 class="color">color</h3>
                 <h3 class="price">price</h3>
                 </div> -->
+                </div>
             </div>
         </div>
     </section>

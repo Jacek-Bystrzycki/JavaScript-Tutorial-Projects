@@ -1,25 +1,32 @@
 import data from "./data.js";
-import {checkboxes, colors, displayData, displayDynamicFilters} from "./utils/utils.js";
-import filterData from "./filters/filter.js";
+import {checkboxes, colors, displayData, displayDynamicFilters, pagination, paginationContainer} from "./utils/utils.js";
+import {filterData, filteredData} from "./filters/filter.js";
 
 //select DOM elements
-export const name = document.querySelector("#name");
-export const lowPrice = document.querySelector("#lprice")
-export const highPrice = document.querySelector("#hprice")
-export const clearBtn = document.querySelector(".clear");
+const name = document.querySelector("#name");
+const lowPrice = document.querySelector("#lprice")
+const highPrice = document.querySelector("#hprice")
+const clearBtn = document.querySelector(".clear");
+const items = document.querySelector("#items");
+
+let pageNo = 0;
+let itemsPerPage = 25;
 
 
+//Filters functionality
 const companyFilterEvent = (data) => {
     checkboxes.forEach(checkbox => {
     checkbox.addEventListener("change", ()=> {  
-       filterData(data);
+       pageNo = 0;
+       filterData(data, false);
     });  
 });
 };
 
 const nameFilterEvent = (data) => {
     name.addEventListener("keyup", () => {
-        filterData(data);
+        pageNo = 0;
+        filterData(data, false);
     });
 };
 
@@ -27,7 +34,8 @@ const priceFilterEvent = (data) => {
     const priceInputs = document.querySelectorAll(".price");
     priceInputs.forEach(input => {
         input.addEventListener("keyup", ()=> {
-            filterData(data);
+            pageNo = 0;
+            filterData(data, false);
         });
     });
 };
@@ -37,23 +45,42 @@ const colorFilterEvent = (data) => {
         color.addEventListener("click", (ev) => {
             if (ev.target.classList.contains("colorbox")){
                 ev.target.classList.toggle("selected");
-                filterData(data);
+                pageNo = 0;
+                filterData(data, false);
             };
         });
     });
 };
 
-displayData(data);
+//Display data when web loaded
+displayData(pagination(data, pageNo)[pageNo]);
 displayDynamicFilters(data);
 
+//Trigger filtering
 companyFilterEvent(data);
 nameFilterEvent(data);
 priceFilterEvent(data);
 colorFilterEvent(data);
 
+//Event Listeners
+paginationContainer.addEventListener("click", (ev) => {
+    if (!ev.target.classList.contains("pagination")){
+        const amountOfPages = Math.floor(data.length / itemsPerPage);
+        if (ev.target.dataset.value === "prev"){
+            pageNo --;
+            if (pageNo < 0) pageNo = amountOfPages - 1; 
+        } else if (ev.target.dataset.value === "next"){
+            pageNo ++;
+            if (pageNo >= amountOfPages) pageNo = 0;
+        } else pageNo = ev.target.dataset.value - 1;
+    
+        displayData(pagination(filteredData, pageNo)[pageNo]);
+    };    
+});
 
 clearBtn.addEventListener("click", ()=>{
-    displayData(data);
+    pageNo = 0;
+    filterData(data, true);
     checkboxes.forEach(checkbox => {
         checkbox.checked = false;
     });
@@ -65,3 +92,14 @@ clearBtn.addEventListener("click", ()=>{
     highPrice.value = "";
     clearBtn.classList.add("hide");
 });
+
+items.addEventListener("keyup", () => {
+    const value = parseInt(items.value);
+    if (value > 2) {
+        itemsPerPage = value
+    } else itemsPerPage = 3;
+    pageNo = 0;
+    displayData(pagination(filteredData, pageNo)[pageNo]);
+});
+
+export {name, lowPrice, highPrice, clearBtn, pageNo, itemsPerPage};
